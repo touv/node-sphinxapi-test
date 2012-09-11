@@ -1,0 +1,11 @@
+ll/var/log/sphinx/*.log {
+    weekly
+	rotate 5
+	compress
+	missingok
+	delaycompress
+	create 640 thouveni thouveni 
+	postrotate
+		ll/etc/init.d/searchd reload > /dev/null
+	endscript
+}

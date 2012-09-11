@@ -1,0 +1,73 @@
+2012-09-11T09:15:15+02:00 - thouveni - Écriture de ll/bin/pkgi-mysqlbackup
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/bin/pkgi-mysqltools
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/cron.d/
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/init.d/mysql
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/log2mail/config/mysql
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/log2mail/mail-mysql
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/logrotate.d/mysql-server
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/mysql/conf.d/020optimization.cnf
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/mysql/debian-start
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/mysql/debian.cnf
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/mysql/my.cnf
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/mysql/mysql-makeroot.sql
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/tmp/
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/usr/bin/mysql
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/usr/bin/mysql_install_db
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/usr/bin/mysqladmin
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/usr/bin/mysqldump
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/usr/bin/mysqlshow
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/usr/sbin/mysqld
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/var/lib/mysql/
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/var/log/mysql/
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/var/run/mysqld/
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/default/searchd
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/init.d/searchd
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/logrotate.d/searchd
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/php5/prepend.d/sphinx.php
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/sphinx/conf.d/
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/sphinx/sphinx.conf
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/usr/bin/indexer
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/usr/bin/indextool
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/usr/bin/search
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/usr/bin/spelldump
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/var/lib/sphinx/
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/var/log/sphinx/
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/var/run/searchd/
+2012-09-11T09:15:16+02:00 - thouveni - Écriture de ll/etc/sphinx/conf.d/010main.conf
+2012-09-11T09:15:17+02:00 - thouveni - Écriture de ll/etc/sphinx/conf.d/020indexer.conf
+2012-09-11T09:15:17+02:00 - thouveni - Écriture de ll/etc/sphinx/conf.d/030searchd.conf
+2012-09-11T09:15:17+02:00 - thouveni - Écriture de ll/etc/sphinx/sphinx.conf
+2012-09-11T09:15:17+02:00 - thouveni - --- Exécution des scripts postinst
+2012-09-11T09:15:17+02:00 - thouveni - [mysql] => bin/pkgi-mysqltools postinst-init => OK
+2012-09-11T09:15:17+02:00 - thouveni - Could not open required defaults file: /ll/etc/mysql/my.cnf
+2012-09-11T09:15:17+02:00 - thouveni - Fatal error in defaults handling. Program aborted
+2012-09-11T09:15:17+02:00 - thouveni -  * MySQL is stopped.
+2012-09-11T09:15:17+02:00 - thouveni - Could not open required defaults file: /ll/etc/mysql/my.cnf
+2012-09-11T09:15:17+02:00 - thouveni - Fatal error in defaults handling. Program aborted
+2012-09-11T09:15:17+02:00 - thouveni - Could not open required defaults file: /ll/etc/mysql/my.cnf
+2012-09-11T09:15:17+02:00 - thouveni - Fatal error in defaults handling. Program aborted
+2012-09-11T09:15:17+02:00 - thouveni - 120911  9:15:17 [Warning] The syntax '--log' is deprecated and will be removed in a future release. Please use '--general-log'/'--general-log-file' instead.
+2012-09-11T09:15:17+02:00 - thouveni - 120911  9:15:17 [Warning] The syntax '--log-slow-queries' is deprecated and will be removed in a future release. Please use '--slow-query-log'/'--slow-query-log-file' instead.
+2012-09-11T09:15:17+02:00 - thouveni - 120911  9:15:17 [Warning] Can't create test file /usr/ll/var/lib/mysql/thouveni2.lower-test
+2012-09-11T09:15:17+02:00 - thouveni - 120911  9:15:17 [Warning] Can't create test file /usr/ll/var/lib/mysql/thouveni2.lower-test
+2012-09-11T09:15:17+02:00 - thouveni - /usr/sbin/mysqld: Can't change dir to '/usr/ll/var/lib/mysql/' (Errcode: 2)
+2012-09-11T09:15:17+02:00 - thouveni - 120911  9:15:17 [ERROR] Aborting
+2012-09-11T09:15:17+02:00 - thouveni - 
+2012-09-11T09:15:17+02:00 - thouveni - 120911  9:15:17 [Note] /usr/sbin/mysqld: Shutdown complete
+2012-09-11T09:15:17+02:00 - thouveni - 
+2012-09-11T09:15:17+02:00 - thouveni - 120911  9:15:17 [Warning] The syntax '--log' is deprecated and will be removed in a future release. Please use '--general-log'/'--general-log-file' instead.
+2012-09-11T09:15:17+02:00 - thouveni - 120911  9:15:17 [Warning] The syntax '--log-slow-queries' is deprecated and will be removed in a future release. Please use '--slow-query-log'/'--slow-query-log-file' instead.
+2012-09-11T09:15:17+02:00 - thouveni - 120911  9:15:17 [ERROR] An old style --language value with language specific part detected: /usr/share/mysql/french/
+2012-09-11T09:15:17+02:00 - thouveni - 120911  9:15:17 [ERROR] Use --lc-messages-dir without language specific part instead.
+2012-09-11T09:15:17+02:00 - thouveni - 120911  9:15:17 [Warning] Can't create test file /usr/ll/var/lib/mysql/thouveni2.lower-test
+2012-09-11T09:15:17+02:00 - thouveni - 120911  9:15:17 [Warning] Can't create test file /usr/ll/var/lib/mysql/thouveni2.lower-test
+2012-09-11T09:15:17+02:00 - thouveni - /usr/sbin/mysqld: Can't change dir to '/usr/ll/var/lib/mysql/' (Errcode: 2)
+2012-09-11T09:15:17+02:00 - thouveni - 120911  9:15:17 [ERROR] Aborting
+2012-09-11T09:15:17+02:00 - thouveni - 
+2012-09-11T09:15:17+02:00 - thouveni - 120911  9:15:17 [Note] /usr/sbin/mysqld: Arrêt du serveur terminé
+2012-09-11T09:15:17+02:00 - thouveni - 
+2012-09-11T09:15:17+02:00 - thouveni - Error: debian-sys-maint cannot be created.
+2012-09-11T09:15:17+02:00 - thouveni - * Votre application SPHINX est prête avec les modules : core,mysql,sphinx,local
+2012-09-11T09:15:17+02:00 - thouveni - * Les paramètres ont été sauvegardés dans : /home/thouveni/devel/node-sphinxapi-test/server/pkgi.env
+2012-09-11T09:15:17+02:00 - thouveni - * Vous pouvez à tout moment modifier un parametre en éditant ce fichier.
+2012-09-11T09:15:17+02:00 - thouveni - * Pensez alors à relancer pkgi/build pour régénérer les fichiers de conf et les lanceurs.

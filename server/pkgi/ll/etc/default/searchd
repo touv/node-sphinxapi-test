@@ -1,0 +1,13 @@
+# Defaults for searchd initscript
+
+# Additional options that are passed to the Daemon.
+DAEMON_OPTS="-c ll/etc/sphinx/sphinx.conf"
+
+# System account to run the searchd server under. 
+#DAEMONUSER="thouveni"
+
+# Server log file
+#LOGFILE=
+
+# Start the demon
+RUN=yes

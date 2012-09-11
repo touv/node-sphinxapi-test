@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ "x$1" = "x" -o "x$1" = "x-h" -o "x$1" = "x--help" ]; then
+	exec /usr/local/bin/indextool
+else
+	exec /usr/local/bin/indextool -c ll/etc/sphinx/sphinx.conf $*
+fi
