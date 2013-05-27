@@ -1,0 +1,21 @@
+<?php
+
+$dir_src  = trim(ini_get('extension_dir'))."/";
+$dir_dst = getenv('APPNAME_HOME').'/usr/lib/php5/extensions/';
+
+// nettoyage des vieux liens symboliques
+if ($dh = opendir($dir_dst)) {
+  while (($file = readdir($dh)) !== false) {
+    $f = $dir_dst . $file;
+    if (is_link($f) || filesize($f) == 0) {
+      unlink($f);
+    }
+  }
+  closedir($dh);
+}
+
+// création des liens symboliques
+foreach( glob($dir_src.'*') as $f ) {
+    symlink($f, $dir_dst.basename($f));
+    pkgi_track_instance($dir_dst.basename($f));
+}

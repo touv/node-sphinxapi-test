@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# chargement de tous les fichiers de profile
-for i in ll/etc/profile.d/* ; do
-  if [ -r "$i" ]; then
-    . $i
-  fi
-done

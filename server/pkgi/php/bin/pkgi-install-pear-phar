@@ -1,0 +1,63 @@
+<?php echo '#!/bin/bash'; ?> 
+
+#set -e -x
+set -e
+
+# download go-pear.phar
+mkdir -p <?php echo getenv('APPNAME_HOME'); ?>/usr/share/pear/
+cd <?php echo getenv('APPNAME_HOME'); ?>/usr/share/pear/
+if [ ! -f go-pear.phar ]; then
+  wget http://pear.php.net/go-pear.phar
+fi
+
+# create a script to execute go-pear.phar and automaticaly answer questions
+GO_PEAR_INSTALLER_FILE=`tempfile -d <?php echo getenv('APPNAME_HOME'); ?>/tmp`
+cat <<EOF > $GO_PEAR_INSTALLER_FILE
+#!/usr/bin/expect
+set env(TMPDIR) "<?php echo getenv('APPNAME_HOME'); ?>/tmp"
+set env(PHPRC) "<?php echo getenv('APPNAME_HOME'); ?>/etc/php5/php.ini"
+set env(HOME) "<?php echo getenv('APPNAME_HOME'); ?>/usr/share/pear"
+spawn php -d suhosin.executor.include.whitelist="phar" <?php echo getenv('APPNAME_HOME'); ?>/usr/share/pear/go-pear.phar 
+expect "1-11, 'all' or Enter to continue:"
+send "2\r"
+send "<?php echo getenv('APPNAME_HOME'); ?>/tmp/pear/install\r"
+send "3\r"
+send "<?php echo getenv('APPNAME_HOME'); ?>/tmp/pear/install\r"
+send "\r"
+expect eof
+EOF
+
+# install pear via go-pear.phar
+chmod +x $GO_PEAR_INSTALLER_FILE
+$GO_PEAR_INSTALLER_FILE
+rm -f $GO_PEAR_INSTALLER_FILE
+
+# configure PEAR directories
+#HOME="`pwd`" pear/bin/pear config-show 
+
+HOME="`pwd`" pear/bin/pear config-set php_dir      <?php echo getenv('APPNAME_HOME'); ?>/usr/share/php/pear
+HOME="`pwd`" pear/bin/pear config-set cache_dir    <?php echo getenv('APPNAME_HOME'); ?>/tmp/pear/cache
+HOME="`pwd`" pear/bin/pear config-set temp_dir     <?php echo getenv('APPNAME_HOME'); ?>/tmp/pear/install
+HOME="`pwd`" pear/bin/pear config-set bin_dir      <?php echo getenv('APPNAME_HOME'); ?>/usr/bin
+HOME="`pwd`" pear/bin/pear config-set ext_dir      <?php echo getenv('APPNAME_HOME'); ?>/usr/lib/php5/extensions
+HOME="`pwd`" pear/bin/pear config-set php_prefix   <?php echo getenv('APPNAME_HOME'); ?>/usr/bin/
+HOME="`pwd`" pear/bin/pear config-set php_ini      <?php echo getenv('APPNAME_HOME'); ?>/etc/php5/php.ini
+HOME="`pwd`" pear/bin/pear config-set www_dir      <?php echo getenv('APPNAME_HOME'); ?>/var/www
+HOME="`pwd`" pear/bin/pear config-set download_dir <?php echo getenv('APPNAME_HOME'); ?>/tmp/pear/install
+HOME="`pwd`" pear/bin/pear config-set auto_discover 1
+
+# copy pear commands to correct place
+#cp -f <?php echo getenv('APPNAME_HOME'); ?>/usr/share/pear/pear/bin/* <?php echo getenv('APPNAME_HOME'); ?>/usr/bin/
+#ls -ail <?php echo getenv('APPNAME_HOME'); ?>/usr/share/pear/pear/bin/
+
+# patch pear and pecl commands (adds specific HOME at script begining)
+for cmd in "pear" "pecl"
+do
+  cp -f <?php echo getenv('APPNAME_HOME'); ?>/usr/share/pear/pear/bin/$cmd <?php echo getenv('APPNAME_HOME'); ?>/usr/bin/
+  SECOND_LINE=`head -n 2 <?php echo getenv('APPNAME_HOME'); ?>/usr/bin/$cmd | tail -n 1`
+  if [ "`echo $SECOND_LINE | grep ^HOME`" == "" ]; then
+    sed -i 's%^#!/bin/sh%#!/bin/sh\nHOME="<?php echo getenv('APPNAME_HOME'); ?>/usr/share/pear"%g' <?php echo getenv('APPNAME_HOME'); ?>/usr/bin/$cmd
+  fi
+done
+
+exit 0

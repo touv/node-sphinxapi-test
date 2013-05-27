@@ -49,12 +49,12 @@ class Pkgi
             echo "    Affiche le numéro de version de pkgi.\n";
             echo "  --help\n";
             echo "    Affiche cette page.\n";
-            die();
+            exit(0);
         }
 
         if (in_array('--version',$this->options)) {
             echo $this->version."\n";
-            die();
+            exit(0);
         }
     
         $env = array();
@@ -87,10 +87,12 @@ class Pkgi
         {
             $dst = $env[$this->APPNAME.'_HOME'];
             if (!file_exists($dst)) @mkdir($dst, 0777, true);
-            if (file_exists($dst))
+            if (file_exists($dst)) {
                 $this->dst_path = $dst;
-            else
-                die("$dst doesn't exist");
+            } else {
+                echo "$dst doesn't exist";
+                exit(1);
+            }
         }
 
         if (in_array('--autoremove',$this->options)) {
@@ -325,7 +327,7 @@ class Pkgi
             }
         }
 
-        if ($error) die();
+        if ($error) exit(1);
     }
 
     function _filter_valide_modules($modules_to_check)
@@ -426,11 +428,11 @@ class Pkgi
                     $env_to_check[$ini_data['env'][$i]][] = $ini_data['env-desc'][$i];
                     $env_to_check[$ini_data['env'][$i]][] = $ini_data['env-choix'][$i] != '' ? explode(',',$ini_data['env-choix'][$i]) : array();
                     $env_to_check[$ini_data['env'][$i]][] = isset($ini_data['env-default'][$i]) ? $ini_data['env-default'][$i] : '';
+                    $env_to_check[$ini_data['env'][$i]][] = isset($ini_data['env-format'][$i]) ? $ini_data['env-format'][$i] : '';
                 }
             }
             unlink($ini_path);
         }
-
         return $env_to_check;
     }
 
@@ -501,8 +503,29 @@ class Pkgi
                             $this->pkgi_log("Valeurs possibles de $e : ".implode(' ou ', $e_option[1])."\n");
                         $v_default = $e_option[2] != '' ? "[defaut=".$e_option[2]."] " : '';
                         $prompt = "La variable $e est indefinie, entrez sa valeur ".$v_default.": ";
-                        $v = readline($prompt);
-                        if ($v == '') $v = $e_option[2]; // si on a rien repondu, on prend la valeur par defaut
+
+                        // load the "format" function from config.ini
+                        // (used to be sure the variables is well formatted)
+                        $format_func_name = '';
+                        if ($e_option[3]) {
+                            $format_func_name = uniqid('format_func');
+                            $format_func_path = tempnam(dirname(__FILE__), 'pkgi_check_func');
+                            $format_func = '<?php function '.$format_func_name.'($var) { '.$e_option[3].' };';
+                            file_put_contents($format_func_path, $format_func);
+                            include($format_func_path);
+                            unlink($format_func_path);
+                        }
+                        
+                        // loop while wrong choice (only if possible values are given)
+                        $wrong_choice = false;
+                        do {
+                            if ($wrong_choice) {
+                                $this->pkgi_log("Valeurs possibles de $e : ".implode(' ou ', $e_option[1])."\n");
+                            }
+                            $v = readline($prompt); // ask user
+                            $v = trim($v) == '' ? $e_option[2] : $v; // take default value if nothing has been answered
+                            $v = $format_func_name ? $format_func_name($v) : $v; // format response value
+                        } while(count($e_option[1]) > 0 && !in_array($v, $e_option[1]) && $wrong_choice = true);
                     }
                     $env[$e] = $v;
                     putenv("$e=$v");
@@ -562,6 +585,12 @@ class Pkgi
         {
             $ini_path = $this->calculate_module_path($m).'/config.ini';
             if (!file_exists($ini_path)) continue;
+            
+            // execute les balises php eventuelles contenues dans config.ini
+            $output = shell_exec($this->php_path.' '.$ini_path);
+            $ini_path = dirname(__FILE__).'/config.ini.tmp';
+            file_put_contents($ini_path,$output);
+            
             $ini_data = parse_ini_file($ini_path);
             if (isset($ini_data['start-daemon']) && $ini_data['start-daemon'] != '')
                 $dstart_list[$m] = $ini_data['start-daemon'];
@@ -667,8 +696,10 @@ class Pkgi
                     "Voulez vous les écraser (o/n) ? :\n";
                 $answer = readline($prompt);
             } while (!preg_match('/^[on]+/i',$answer));
-            if (preg_match('/^n/i',$answer))
-                die("Build interrompu !\n");
+            if (preg_match('/^n/i',$answer)) {
+                echo "Build interrompu !\n";
+                exit(1);
+            }
         }
     
         // then we instanciate the templates

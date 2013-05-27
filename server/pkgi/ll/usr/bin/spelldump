@@ -1,6 +1,0 @@
-#!/bin/sh
-if [ "x$1" = "x" -o "x$1" = "x-h" -o "x$1" = "x--help" ]; then
-	exec /usr/local/bin/spelldump
-else 
-	exec /usr/local/bin/spelldump -c ll/etc/sphinx/sphinx.conf $*
-fi

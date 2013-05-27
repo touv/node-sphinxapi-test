@@ -8,10 +8,13 @@ FILE="`basename "$0"`"
 DIR="`dirname "$0"`"
 cd "$DIR"
 
-# chargement des eventuels definitions d'environnements 
+# chargement des eventuelles definitions d'environnements 
 test -f "./pkgi.env" && . "./pkgi.env"
-for i in `ls .` ; do
-  test -f "$i/pkgi.env" && . "$i/pkgi.env"
+for i in `ls ./*/pkgi.env 2>/dev/null` ; do
+    test -f "$i" && . "$i"
+done
+for i in `ls ../pkgi.*/pkgi.env 2>/dev/null` ; do
+    test -f "$i" && . "$i"
 done
 
 # test de l'existance du binaire php en ligne de commande
@@ -22,6 +25,9 @@ then
     echo "php is not found, please install the php command line binary (php5-cli package on debian)"
     exit 1
 fi
+
+# pkgi needs system php.ini to calculate few paths
+unset PHPRC
 
 exec $PHP -C -q -d output_buffering=1 "$FILE" $@ 
 exit $?

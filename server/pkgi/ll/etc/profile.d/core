@@ -1,5 +1,0 @@
-# modification du PATH locale pour mettre a disposition les chemins vers des executables locaux
-export PATH="ll/usr/sbin:ll/usr/bin:ll/bin:$PATH"
-
-# chargement des variables d'environnement de pkgi pour qu'elles soient à disposition des différents modules
-. /home/thouveni/devel/node-sphinxapi-test/server/pkgi.env 

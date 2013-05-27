@@ -1,2 +1,0 @@
-#!/bin/bash 
-/usr/bin/mysql --defaults-file=ll/etc/mysql/debian.cnf $*

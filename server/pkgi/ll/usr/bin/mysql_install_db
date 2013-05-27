@@ -1,2 +1,0 @@
-#!/bin/bash 
-/usr/bin/mysql_install_db --defaults-file=ll/etc/mysql/my.cnf $*

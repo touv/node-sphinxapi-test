@@ -1,2 +1,0 @@
-#!/bin/sh
-/usr/sbin/mysqld --defaults-file=ll/etc/mysql/my.cnf $*

@@ -1,0 +1,7 @@
+<?php
+
+$f = getenv('APPNAME_HOME').'/etc/dokuwiki/local.php';
+if (!file_exists($f)) {
+  $content = file_get_contents(dirname(__FILE__).'/local.php.dist');
+  file_put_contents($f, $content);
+}
