@@ -10,6 +10,7 @@ cl.SetFieldWeights({
     title: 15000,
     content: 30000
 });
+cl.SetMatchMode(SphinxClient.SPH_MATCH_EXTENDED);
 cl.Query('test', function(err, result) { 
 		assert.ifError(err);
 		console.log(util.inspect(result, false, null, true));
